@@ -91,19 +91,16 @@ print(average_temp)
 wx_values = []
 
 # Specify the target location and element
-target_location_name = "瑞芳區"
 target_element_name = "Wx"
-
+target_location_name = "瑞芳區"
 # Iterate through each location in your data
 for location_entry in data_json["records"]["locations"]:
-    if location_entry["location"][0]["locationName"] == target_location_name:
-        # Iterate through each weather element
-        for weather_element in location_entry["location"][0]["weatherElement"]:
-            if weather_element["elementName"] == target_element_name:
-                # Iterate through each time entry for the specified element
-                for time_entry in weather_element["time"]:
-                    value_str = time_entry["elementValue"][0]["value"]
-                    wx_values.append(value_str)
+    for weather_element in location_entry["location"][3]["weatherElement"]:
+        if weather_element["elementName"] == target_element_name:
+            # Iterate through each time entry for the specified element
+            for time_entry in weather_element["time"]:
+                value_str = time_entry["elementValue"][0]["value"]
+                wx_values.append(value_str)
 
 print(wx_values)
 
@@ -111,22 +108,39 @@ timestamps = []
 
 # Iterate through each location in your data
 for location_entry in data_json["records"]["locations"]:
-    if location_entry["location"][0]["locationName"] == target_location_name:
-        # Iterate through each weather element
-        for weather_element in location_entry["location"][0]["weatherElement"]:
-            if weather_element["elementName"] == 'T':
-                # Iterate through each time entry for the specified element
-                for time_entry in weather_element["time"]:
-                    start_time = time_entry["startTime"]
-                    end_time = time_entry["endTime"]
-                    timestamps.extend([start_time, end_time])
+    for weather_element in location_entry["location"][3]["weatherElement"]:
+        if weather_element["elementName"] == 'T':
+            # Iterate through each time entry for the specified element
+            for time_entry in weather_element["time"]:
+                start_time = time_entry["startTime"]
+                end_time = time_entry["endTime"]
+                timestamps.extend([start_time, end_time])
 
 print(timestamps)
+#print precipitation_probability plot
+x_precipitation_probability = timestamps
+y_precipitation_probability = precipitation_probability
+
+formatted_x = [f'{start} ->\n{end}' for start, end in zip(x_precipitation_probability[::2], x_precipitation_probability[1::2])]
+# Create a plot with labels and title
+plt.plot(formatted_x, y_precipitation_probability, label='Precipitation Probability')
+plt.xlabel('Time Range')
+plt.ylabel('Precipitation Probability')
+plt.title('Tamsui Weather Forecast')
+
+# Rotate x-axis labels
+plt.xticks(rotation=45)
+
+# Add grid lines and legend
+plt.grid(True)
+plt.legend()
+
+# Show the plot
+plt.tight_layout()
+plt.show()
 
 #average temp plot
-x_temp = timestamps
 y_temp = average_temp
-formatted_x = [f'{start} ->\n{end}' for start, end in zip(x_temp[::2], x_temp[1::2])]
 
 # Create a plot with labels and title
 plt.plot(formatted_x, y_temp, label='average temperature')
