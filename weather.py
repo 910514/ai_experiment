@@ -2,6 +2,7 @@ import requests
 import json
 from datetime import datetime
 import numpy as np
+import matplotlib.pyplot as plt
 
 json_file_path = 'response_1700983905482.json'
 with open(json_file_path, 'r', encoding='utf-8') as file:
@@ -113,10 +114,33 @@ for location_entry in data_json["records"]["locations"]:
     if location_entry["location"][0]["locationName"] == target_location_name:
         # Iterate through each weather element
         for weather_element in location_entry["location"][0]["weatherElement"]:
-            if weather_element["elementName"] == target_element_name:
+            if weather_element["elementName"] == 'T':
                 # Iterate through each time entry for the specified element
                 for time_entry in weather_element["time"]:
-                    timestamp = time_entry["startTime"]  # Extract the start time as the timestamp
-                    timestamps.append(timestamp)
+                    start_time = time_entry["startTime"]
+                    end_time = time_entry["endTime"]
+                    timestamps.extend([start_time, end_time])
 
 print(timestamps)
+
+#average temp plot
+x_temp = timestamps
+y_temp = average_temp
+formatted_x = [f'{start} ->\n{end}' for start, end in zip(x_temp[::2], x_temp[1::2])]
+
+# Create a plot with labels and title
+plt.plot(formatted_x, y_temp, label='average temperature')
+plt.xlabel('Time Range')
+plt.ylabel('Temperature')
+plt.title('Tamsui Weather Forecast')
+
+# Rotate x-axis labels
+plt.xticks(rotation=45)
+
+# Add grid lines and legend
+plt.grid(True)
+plt.legend()
+
+# Show the plot
+plt.tight_layout()
+plt.show()
