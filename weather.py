@@ -66,59 +66,45 @@ x_precipitation_probability = timestamps
 y_precipitation_probability = pop12h_values
 
 formatted_x = [f'{start} ->\n{end}' for start, end in zip(x_precipitation_probability[::2], x_precipitation_probability[1::2])]
-# Create a plot with labels and title
+# Plot 1: Precipitation Probability
+plt.figure()
+plt.rcParams["figure.figsize"] = (20,6)
 plt.plot(formatted_x, y_precipitation_probability, label='Precipitation Probability')
 plt.xlabel('Time Range')
 plt.ylabel('Precipitation Probability')
 plt.title('Tamsui Weather Forecast')
-
-# Rotate x-axis labels
 plt.xticks(rotation=45)
-
-# Add grid lines and legend
 plt.grid(True)
 plt.legend()
-
-# Show the plot
 plt.tight_layout()
-plt.show()
+plt.savefig('pop12h.png', dpi=100)
 
-#average temp plot
+# Plot 2: Average Temperature
 y_temp = average_temp
-print(average_temp)
-# Create a plot with labels and title
-plt.plot(formatted_x, y_temp, label='average temperature')
+plt.figure()
+plt.rcParams["figure.figsize"] = (30,10)
+plt.plot(formatted_x, y_temp, label='Average Temperature')
 plt.xlabel('Time Range')
 plt.ylabel('Temperature')
 plt.title('Tamsui Weather Forecast')
-
-# Rotate x-axis labels
 plt.xticks(rotation=45)
-
-# Add grid lines and legend
 plt.grid(True)
 plt.legend()
-
-# Show the plot
 plt.tight_layout()
-plt.show()
+plt.savefig('average_temp.png', dpi=100)
 
-#MaxAT plot
+# Plot 3: MaxAT
 y_MaxAT = MaxAT
-print(average_temp)
-# Create a plot with labels and title
+plt.figure()
+plt.rcParams["figure.figsize"] = (20,10)
 plt.plot(formatted_x, y_MaxAT, label='MaxAT')
 plt.xlabel('Time Range')
 plt.ylabel('Temperature')
 plt.title('Tamsui Weather Forecast')
-
-# Rotate x-axis labels
 plt.xticks(rotation=45)
-
-# Add grid lines and legend
 plt.grid(True)
 plt.legend()
-
-# Show the plot
 plt.tight_layout()
-plt.show()
+plt.savefig('maxAT.png', dpi=100)
+
+print("Success plotting graph!")
