@@ -78,6 +78,13 @@ plt.grid(True)
 plt.legend()
 plt.tight_layout()
 plt.savefig('pop12h.png', dpi=100)
+#輸出時間戳到timestamps.txt
+with open('timestamps.txt', 'w') as file:
+    file.write(str(timestamps))
+
+#輸出降雨機率到pop12h.txt
+with open('pop12h.txt', 'w') as file:
+    file.write(str(pop12h_values))
 
 # Plot 2: Average Temperature
 y_temp = average_temp
@@ -92,6 +99,10 @@ plt.grid(True)
 plt.legend()
 plt.tight_layout()
 plt.savefig('average_temp.png', dpi=100)
+#輸出平均溫度到average_temp.txt
+with open('average_temp.txt', 'w') as file:
+    # Step 2: Write the variable content to the file
+    file.write(str(average_temp))
 
 # Plot 3: MaxAT
 y_MaxAT = MaxAT
@@ -106,5 +117,9 @@ plt.grid(True)
 plt.legend()
 plt.tight_layout()
 plt.savefig('maxAT.png', dpi=100)
+#輸出最大體感到MaxAT.txt
+with open('MaxAT.txt', 'w') as file:
+    # Step 2: Write the variable content to the file
+    file.write(str(MaxAT))
 
 print("Success plotting graph!")

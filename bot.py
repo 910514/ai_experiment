@@ -1,8 +1,9 @@
+import re
 # 導入Discord.py模組
 import discord
 # 導入commands指令模組
 from discord.ext import commands
-token = "dc_token"
+token = "token"
 # intents是要求機器人的權限
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="/", intents=intents)
@@ -39,7 +40,23 @@ async def weather(ctx):
         with open('maxAT.png', 'rb') as f:
             # Send the file as an attachment
             await ctx.send(file=discord.File(f, 'maxAT.png'))
+        subprocess.run(["python", "api.py"])
+        with open('output_api.txt', 'r', encoding='utf-8') as file:
+            output_api_content = file.read()
+        await ctx.send(output_api_content)
     except Exception as e:
         await ctx.send(f"Error when generating chart:{e}")
+
+@bot.command()
+async def llama2(ctx):
+    try:
+        #import subprocess
+        #subprocess.run(["python", "api.py"])
+        with open('output_api.txt', 'r', encoding='utf-8') as file:
+            output_api_content = file.read()
+        await ctx.send(output_api_content)
+    except Exception as e:
+        await ctx.send(f"Error when generating ai response:{e}")
+
 
 bot.run(token)
