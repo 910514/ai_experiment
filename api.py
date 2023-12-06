@@ -23,7 +23,7 @@ with open('MaxAT.txt', 'r') as file:
     # Step 3: Read the content of the file into a variable
     MaxAT = file.read()
 
-result_string = "請以根据提供的数据，我们可以得出以下结论開頭總結出這幾天的天氣狀況:" + "這是降雨機率" + pop12h + "這是平均溫度" + average_temp + "這是最大體感溫度" + MaxAT
+result_string = "請根据提供的数据，總結出這幾天的天氣狀況:" + "這是降雨機率" + pop12h + "這是平均溫度" + average_temp + "這是最大體感溫度" + MaxAT
 
 result = client.predict(
     [[result_string, None]],  # Tuple[str | Dict(file: filepath, alt_text: str | None) | None, str | Dict(file: filepath, alt_text: str | None) | None] in 'parameter_2' Chatbot component

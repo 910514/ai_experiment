@@ -3,7 +3,7 @@ import re
 import discord
 # 導入commands指令模組
 from discord.ext import commands
-token = "token"
+token = "your_token"
 # intents是要求機器人的權限
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="/", intents=intents)
@@ -43,18 +43,22 @@ async def weather(ctx):
         subprocess.run(["python", "api.py"])
         with open('output_api.txt', 'r', encoding='utf-8') as file:
             output_api_content = file.read()
-        await ctx.send(output_api_content)
+            final_result = re.sub(r'^.*?\'.*?\'.*?\'', '', output_api_content)
+            final_result = final_result.rstrip("']")
+            final_result = final_result.replace(r'\n', '\n')
+            await ctx.send(f'```plaintext\n{final_result}\n```')
     except Exception as e:
         await ctx.send(f"Error when generating chart:{e}")
 
 @bot.command()
 async def llama2(ctx):
     try:
-        #import subprocess
-        #subprocess.run(["python", "api.py"])
         with open('output_api.txt', 'r', encoding='utf-8') as file:
             output_api_content = file.read()
-        await ctx.send(output_api_content)
+            final_result = re.sub(r'^.*?\'.*?\'.*?\'', '', output_api_content)
+            final_result = final_result.rstrip("']")
+            final_result = final_result.replace(r'\n', '\n')
+            await ctx.send(f'```plaintext\n{final_result}\n```')
     except Exception as e:
         await ctx.send(f"Error when generating ai response:{e}")
 

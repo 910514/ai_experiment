@@ -1,1 +1,1 @@
-[90.0, 90.0, 70.0, 20.0, 20.0, 40.0, 20.0, nan, nan, nan, nan, nan, nan, nan, nan]
+[20.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, nan, nan, nan, nan, nan, nan, nan, nan]
