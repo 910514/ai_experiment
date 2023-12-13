@@ -4,7 +4,7 @@ url = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-071'
 api_key = 'your_api_key'  # Replace 'your_api_key' with your actual API key
 
 headers = {
-    'Authorization': f'{api_key}',  # Include a space after 'CWB'
+    'Authorization': f'{api_key}',
 }
 
 response = requests.get(url, headers=headers)

@@ -80,7 +80,8 @@ plt.tight_layout()
 plt.savefig('pop12h.png', dpi=100)
 #輸出時間戳到timestamps.txt
 with open('timestamps.txt', 'w') as file:
-    file.write(str(timestamps))
+    fformatted_x = [s.replace('\n', ' ') for s in formatted_x]
+    file.write(str(fformatted_x))
 
 #輸出降雨機率到pop12h.txt
 with open('pop12h.txt', 'w') as file:
